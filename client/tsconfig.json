@@ -1,3 +1,4 @@
+/// <reference path="path/types.d.ts" />
 {
   "compilerOptions": {
     "target": "es5",
