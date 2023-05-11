@@ -1,1 +1,1 @@
-TypeScript, Node, React, Express, Zod, MongoDb, Ant Design
+TypeScript, Node, React, Redux, Express, Zod, MongoDb, Ant Design
