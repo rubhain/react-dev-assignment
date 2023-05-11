@@ -5,7 +5,7 @@ import { WithId } from "mongodb";
 
 export const Company = z.object({
     companyName: z.string().min(1),
-    legalNumber: z.number(),
+    legalNumber: z.string(),
     country: z.string(),
     website: z.string(),
 });
