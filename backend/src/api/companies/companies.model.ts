@@ -7,6 +7,7 @@ export const Company = z.object({
     companyName: z.string().min(1),
     legalNumber: z.number(),
     country: z.string(),
+    website: z.string(),
 });
 
 export default Company;

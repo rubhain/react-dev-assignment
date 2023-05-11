@@ -116,7 +116,8 @@ describe('PUT /api/v1/companies/:id', () => {
       .send({
         companyName: 'Updated Company',
         legalNumber: 999999,
-        country: 'Somewhere Updated'
+        country: 'Somewhere Updated',
+        website: 'www.website.com'
       })
       .expect('Content-Type', /json/)
       .expect(200)
