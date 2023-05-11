@@ -9,14 +9,13 @@ import {
   deleteCompany,
   updateCompany,
 } from "../../../storage/companiesSlice";
-import { RedoOutlined } from "@ant-design/icons";
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
 interface Item {
   _id: string;
   companyName: string;
-  legalNumber: number;
+  legalNumber: string;
   country: string;
   website: string;
 }
@@ -25,7 +24,10 @@ interface EditableRowProps {
   index: number;
 }
 
-const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
+export const EditableRow: React.FC<EditableRowProps> = ({
+  index,
+  ...props
+}) => {
   const [form] = Form.useForm();
   return (
     <Form form={form} component={false}>
@@ -45,7 +47,7 @@ interface EditableCellProps {
   handleSave: (record: Item) => void;
 }
 
-const EditableCell: React.FC<EditableCellProps> = ({
+export const EditableCell: React.FC<EditableCellProps> = ({
   title,
   editable,
   children,
@@ -112,24 +114,25 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
 type EditableTableProps = Parameters<typeof Table>[0];
 
-interface DataType {
+export interface DataType {
   _id: string;
   companyName: string;
-  legalNumber: number;
+  legalNumber: string;
   country: string;
   website: string;
+  products: any;
 }
 
-interface NewDataType {
+export interface NewDataType {
   companyName: string;
-  legalNumber: number;
+  legalNumber: string;
   country: string;
   website: string;
 }
 
 type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
 
-const App: React.FC = () => {
+const Companies: React.FC = () => {
   const data: DataType[] = useSelector(
     (state: any) => state.companies
   ).companies;
@@ -142,6 +145,7 @@ const App: React.FC = () => {
   //DELETE
   const handleDelete = (_id: string) => {
     dispatch(deleteCompany(_id));
+    dispatch(fetchCompanies());
   };
 
   const defaultColumns: (ColumnTypes[number] & {
@@ -172,7 +176,7 @@ const App: React.FC = () => {
     {
       title: "operation",
       dataIndex: "operation",
-      render: (_, record: { _id: string }) =>
+      render: (_: any, record: { _id: string }) =>
         data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -187,11 +191,12 @@ const App: React.FC = () => {
   const handleAdd = () => {
     const newData: NewDataType = {
       companyName: "Test Company",
-      legalNumber: 777777,
+      legalNumber: "777777",
       country: "Somewhere",
       website: "www.website.com",
     };
     dispatch(addCompany(newData));
+    dispatch(fetchCompanies());
   };
   //PUT
   const handleSave = (row: DataType) => {
@@ -203,6 +208,7 @@ const App: React.FC = () => {
       ...row,
     });
     dispatch(updateCompany(newData[index]));
+    dispatch(fetchCompanies());
   };
 
   const components = {
@@ -233,12 +239,7 @@ const App: React.FC = () => {
       <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
         Add a row
       </Button>
-      <Button
-        onClick={() => dispatch(fetchCompanies())}
-        type="primary"
-        shape="circle"
-        icon={<RedoOutlined />}
-      />
+
       <Table
         components={components}
         rowClassName={() => "editable-row"}
@@ -250,4 +251,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Companies;
