@@ -14,7 +14,6 @@ export const companiesSlice = createSlice({
     reducers:{
 
         addCompany: (state,action) => {
-
             axios.post('http://localhost:5000/api/v1/companies', action.payload)
               .then(function (response) {
                 console.log(response);

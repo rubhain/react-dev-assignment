@@ -63,7 +63,9 @@ const Main: React.FC = () => {
         </Menu>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <h1>HEADER</h1>
+        </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
